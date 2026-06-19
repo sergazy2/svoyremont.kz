@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SvoyRemont — Ремонт квартир под ключ</title>
+<style>
+*{box-sizing:border-box}
+:root{--dark:#111827;--dark2:#1f2937;--green:#16a34a;--green2:#15803d;--light:#f3f5f8;--text:#222;--muted:#6b7280;--border:#e5e7eb}
+body{margin:0;font-family:Arial,sans-serif;background:var(--light);color:var(--text)}
+.header{background:rgba(17,24,39,.96);color:white;position:sticky;top:0;z-index:10}
+.nav{max-width:1180px;margin:auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-size:26px;font-weight:800}
+.nav-links{display:flex;gap:22px;font-size:15px;color:#d1d5db}
+.nav-links a{text-decoration:none;color:inherit}
+.nav-links a:hover{color:white}
+.nav-phone{background:var(--green);padding:11px 16px;border-radius:999px;text-decoration:none;color:white;font-weight:700}
+.hero{background:linear-gradient(135deg,rgba(17,24,39,.96),rgba(31,41,55,.92));color:white;padding:75px 20px 95px}
+.hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;gap:35px;align-items:center}
+.badge{display:inline-block;background:rgba(22,163,74,.16);border:1px solid rgba(34,197,94,.35);padding:10px 14px;border-radius:999px;color:#bbf7d0;font-weight:700;margin-bottom:18px}
+.hero h1{font-size:52px;line-height:1.08;margin:0 0 18px}
+.hero p{font-size:20px;line-height:1.55;color:#d1d5db;margin:0 0 28px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;padding:16px 22px;border-radius:14px;text-decoration:none;font-weight:800;text-align:center}
+.btn-primary{background:var(--green);color:white}
+.btn-primary:hover{background:var(--green2)}
+.btn-secondary{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:white}
+.hero-card{background:white;color:var(--text);border-radius:24px;padding:28px;box-shadow:0 30px 70px rgba(0,0,0,.25)}
+.hero-card h3{margin-top:0;font-size:24px}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.stat{background:#f9fafb;border-radius:16px;padding:18px}
+.stat b{display:block;font-size:24px;color:var(--green);margin-bottom:6px}
+.section{max-width:1180px;margin:auto;padding:70px 20px}
+.section-title{text-align:center;margin-bottom:36px}
+.section-title h2{font-size:36px;margin:0 0 10px}
+.section-title p{color:var(--muted);font-size:18px;margin:0}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card,.package,.step{background:white;border-radius:20px;padding:26px;box-shadow:0 12px 30px rgba(0,0,0,.07);border:1px solid var(--border)}
+.card h3,.package h3,.step h3{margin-top:0}
+.card p,.step p{color:var(--muted);line-height:1.6}
+.packages{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.package.featured{border:2px solid var(--green);transform:translateY(-8px)}
+.price{font-size:26px;font-weight:900;color:var(--green);margin:12px 0}
+.package ul{padding-left:18px;color:var(--muted);line-height:1.8}
+.calculator-wrap{display:grid;grid-template-columns:1fr .85fr;gap:24px;align-items:start}
+.calculator{background:white;border-radius:24px;padding:30px;box-shadow:0 15px 35px rgba(0,0,0,.1);border:1px solid var(--border)}
+label{display:block;margin-top:18px;font-weight:bold}
+input,select{width:100%;padding:14px;margin-top:7px;border:1px solid #d1d5db;border-radius:12px;font-size:16px}
+.extras label{font-weight:normal;background:#f9fafb;padding:12px;border-radius:12px;cursor:pointer}
+.extras input{width:auto;margin-right:8px}
+button{width:100%;padding:16px;margin-top:25px;border:none;border-radius:14px;background:var(--green);color:white;font-size:18px;font-weight:bold;cursor:pointer}
+button:hover{background:var(--green2)}
+.result{margin-top:25px;padding:22px;background:#f9fafb;border-radius:14px;line-height:1.8}
+.total{margin-top:15px;font-size:28px;color:var(--green);font-weight:bold}
+.whatsapp{display:block;text-align:center;margin-top:18px;padding:16px;background:#25D366;color:white;text-decoration:none;border-radius:14px;font-size:18px;font-weight:bold}
+.note-card{background:var(--dark);color:white;border-radius:24px;padding:30px;position:sticky;top:90px}
+.note-card h3{margin-top:0;font-size:26px}
+.note-card p{color:#d1d5db;line-height:1.7}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.step-num{width:42px;height:42px;border-radius:50%;background:var(--green);color:white;display:flex;align-items:center;justify-content:center;font-weight:900;margin-bottom:14px}
+.cta{background:linear-gradient(135deg,var(--dark),var(--dark2));color:white;text-align:center;padding:70px 20px}
+.cta h2{font-size:38px;margin:0 0 14px}
+.cta p{color:#d1d5db;font-size:18px;margin-bottom:26px}
+.footer{background:#0b1220;color:#9ca3af;padding:28px 20px;text-align:center}
+@media(max-width:900px){.hero-inner,.calculator-wrap{grid-template-columns:1fr}.grid-3,.packages,.steps{grid-template-columns:1fr 1fr}.hero h1{font-size:40px}.nav-links{display:none}}
+@media(max-width:560px){.hero{padding:48px 16px 70px}.hero h1{font-size:32px}.hero p{font-size:17px}.section{padding:46px 16px}.grid-3,.packages,.steps,.hero-stats{grid-template-columns:1fr}.calculator,.note-card,.card,.package{padding:22px}.nav-phone{padding:10px 12px;font-size:14px}}
+</style>
+</head>
+<body>
+<header class="header">
+<div class="nav">
+<div class="logo">SvoyRemont</div>
+<nav class="nav-links">
+<a href="#packages">Пакеты</a>
+<a href="#calculator">Калькулятор</a>
+<a href="#steps">Этапы</a>
+<a href="#contact">Заявка</a>
+</nav>
+<a class="nav-phone" href="https://wa.me/77023999927" target="_blank">WhatsApp</a>
+</div>
+</header>
+
+<section class="hero">
+<div class="hero-inner">
+<div>
+<div class="badge">Ремонт квартир под ключ</div>
+<h1>Рассчитайте стоимость ремонта за 1 минуту</h1>
+<p>Выберите площадь, пакет ремонта и дополнительные услуги. Калькулятор сразу рассчитает предварительную стоимость и сформирует заявку в WhatsApp.</p>
+<div class="hero-actions">
+<a href="#calculator" class="btn btn-primary">Рассчитать стоимость</a>
+<a href="https://wa.me/77023999927" target="_blank" class="btn btn-secondary">Написать в WhatsApp</a>
+</div>
+</div>
+<div class="hero-card">
+<h3>Стоимость ремонта от 115 000 ₸/м²</h3>
+<p style="color:#6b7280;line-height:1.6">Предварительный расчет помогает быстро понять бюджет ремонта и выбрать подходящий пакет.</p>
+<div class="hero-stats">
+<div class="stat"><b>4</b>пакета ремонта</div>
+<div class="stat"><b>1 мин</b>быстрый расчет</div>
+<div class="stat"><b>под ключ</b>полный цикл работ</div>
+<div class="stat"><b>WhatsApp</b>заявка сразу</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-title">
+<h2>Почему выбирают SvoyRemont</h2>
+<p>Удобный расчет, понятные пакеты и заявка без лишних звонков.</p>
+</div>
+<div class="grid-3">
+<div class="card"><h3>Понятные тарифы</h3><p>Клиент сразу видит стоимость за квадратный метр и может выбрать подходящий уровень ремонта.</p></div>
+<div class="card"><h3>Дополнительные услуги</h3><p>Умный дом, демонтаж и дизайн-проект добавляются к расчету автоматически по площади квартиры.</p></div>
+<div class="card"><h3>Заявка в WhatsApp</h3><p>После расчета клиент отправляет готовую заявку с площадью, пакетом и итоговой суммой.</p></div>
+</div>
+</section>
+
+<section class="section" id="packages">
+<div class="section-title">
+<h2>Пакеты ремонта</h2>
+<p>Выберите подходящий формат ремонта квартиры.</p>
+</div>
+<div class="packages">
+<div class="package"><h3>Стандартный под ключ</h3><div class="price">115 000 ₸/м²</div><ul><li>Базовый ремонт</li><li>Основные работы</li><li>Оптимальный бюджет</li></ul></div>
+<div class="package featured"><h3>Комфорт</h3><div class="price">125 000 ₸/м²</div><ul><li>Улучшенный ремонт</li><li>Практичные материалы</li><li>Популярный выбор</li></ul></div>
+<div class="package"><h3>Комфорт Плюс</h3><div class="price">135 000 ₸/м²</div><ul><li>Расширенный пакет</li><li>Более высокий уровень</li><li>Для современных квартир</li></ul></div>
+<div class="package"><h3>Бизнес</h3><div class="price">от 145 000 ₸/м²</div><ul><li>Премиальный ремонт</li><li>Индивидуальные решения</li><li>Повышенный комфорт</li></ul></div>
+</div>
+</section>
+
+<section class="section" id="calculator">
+<div class="section-title">
+<h2>Калькулятор стоимости</h2>
+<p>Расчет является предварительным. Точная смета формируется после осмотра объекта.</p>
+</div>
+<div class="calculator-wrap">
+<div class="calculator">
+<label>Площадь квартиры, м²</label>
+<input type="number" id="area" placeholder="Например: 75">
+<label>Пакет ремонта</label>
+<select id="repairType">
+<option value="115000">Стандартный под ключ — 115 000 ₸/м²</option>
+<option value="125000">Комфорт — 125 000 ₸/м²</option>
+<option value="135000">Комфорт Плюс — 135 000 ₸/м²</option>
+<option value="145000">Бизнес — от 145 000 ₸/м²</option>
+</select>
+<label>Дополнительные услуги</label>
+<div class="extras">
+<label><input type="checkbox" id="smartHome">Умный дом — от 8 000 ₸/м²</label>
+<label><input type="checkbox" id="demolition">Демонтаж — от 5 000 ₸/м²</label>
+<label><input type="checkbox" id="design">Дизайн-проект — от 5 000 ₸/м²</label>
+</div>
+<button onclick="calculate()">Рассчитать стоимость</button>
+<div class="result" id="result">Введите площадь квартиры и выберите нужные услуги.</div>
+<a class="whatsapp" id="whatsappBtn" href="https://wa.me/77023999927" target="_blank">Отправить заявку в WhatsApp</a>
+</div>
+<div class="note-card">
+<h3>Что входит в расчет</h3>
+<p>Калькулятор считает стоимость по площади квартиры, выбранному пакету ремонта и дополнительным услугам.</p>
+<p>После расчета клиент может отправить заявку в WhatsApp. В сообщении автоматически будут указаны площадь, выбранный пакет, дополнительные услуги и итоговая сумма.</p>
+<p>WhatsApp: <b>+7 702 399 99 27</b></p>
+</div>
+</div>
+</section>
+
+<section class="section" id="steps">
+<div class="section-title">
+<h2>Этапы работы</h2>
+<p>Простой путь от расчета до начала ремонта.</p>
+</div>
+<div class="steps">
+<div class="step"><div class="step-num">1</div><h3>Расчет</h3><p>Клиент выбирает площадь, пакет и услуги.</p></div>
+<div class="step"><div class="step-num">2</div><h3>Заявка</h3><p>Заявка отправляется в WhatsApp с расчетом.</p></div>
+<div class="step"><div class="step-num">3</div><h3>Осмотр</h3><p>Специалист уточняет объем работ на объекте.</p></div>
+<div class="step"><div class="step-num">4</div><h3>Смета</h3><p>Формируется точная стоимость и план работ.</p></div>
+</div>
+</section>
+
+<section class="cta" id="contact">
+<h2>Готовы рассчитать ремонт?</h2>
+<p>Откройте калькулятор или напишите напрямую в WhatsApp.</p>
+<a href="#calculator" class="btn btn-primary">Перейти к расчету</a>
+</section>
+
+<footer class="footer">© SvoyRemont. Стоимость является предварительной и не является публичной офертой.</footer>
+
+<script>
+let finalText="Здравствуйте! Хочу рассчитать стоимость ремонта.";
+function calculate(){
+let area=Number(document.getElementById('area').value);
+let repairSelect=document.getElementById('repairType');
+let pricePerMeter=Number(repairSelect.value);
+let repairName=repairSelect.options[repairSelect.selectedIndex].text;
+if(!area||area<=0){alert('Введите площадь квартиры');return;}
+let repairCost=area*pricePerMeter;
+let extras=0;
+let extraList=[];
+if(document.getElementById('smartHome').checked){let cost=area*8000;extras+=cost;extraList.push("Умный дом: "+cost.toLocaleString('ru-RU')+" ₸");}
+if(document.getElementById('demolition').checked){let cost=area*5000;extras+=cost;extraList.push("Демонтаж: "+cost.toLocaleString('ru-RU')+" ₸");}
+if(document.getElementById('design').checked){let cost=area*5000;extras+=cost;extraList.push("Дизайн-проект: "+cost.toLocaleString('ru-RU')+" ₸");}
+let total=repairCost+extras;
+document.getElementById('result').innerHTML=`
+<div>Площадь: <b>${area} м²</b></div>
+<div>Пакет: <b>${repairName}</b></div>
+<div>Стоимость ремонта: <b>${repairCost.toLocaleString('ru-RU')} ₸</b></div>
+<div>Дополнительные услуги: <b>${extras.toLocaleString('ru-RU')} ₸</b></div>
+<div class="total">Итого: ${total.toLocaleString('ru-RU')} ₸</div>`;
+finalText="Здравствуйте! Хочу оставить заявку на ремонт.%0A%0A"+
+"Площадь: "+area+" м²%0A"+
+"Пакет: "+repairName+"%0A"+
+"Стоимость ремонта: "+repairCost.toLocaleString('ru-RU')+" ₸%0A"+
+"Дополнительные услуги: "+(extraList.length?extraList.join(", "):"не выбраны")+"%0A"+
+"Итого: "+total.toLocaleString('ru-RU')+" ₸";
+document.getElementById('whatsappBtn').href="https://wa.me/77023999927?text="+finalText;
+}
+</script>
+</body>
+</html>
